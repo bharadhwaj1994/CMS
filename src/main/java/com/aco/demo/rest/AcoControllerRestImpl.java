@@ -1,5 +1,7 @@
 package com.aco.demo.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aco.demo.domain.AcoAgreementDetails;
 import com.aco.demo.domain.AcoDetails;
 import com.aco.demo.domain.AcoParticipant;
+import com.aco.demo.domain.EmailId;
 import com.aco.demo.service.AcoService;
 
 @RestController
@@ -75,5 +78,46 @@ public class AcoControllerRestImpl implements AcoControllerRestApi {
 		}
 		return ResponseEntity.badRequest().body(null);
 	}
+
+	@Override
+	public ResponseEntity<Object> getAllAcoDetails() {
+		List<AcoDetails> acoDetailsList = acoService.getAllAcoDetails();
+		return ResponseEntity.status(HttpStatus.OK).body(acoDetailsList);
+	}
+
+	@Override
+	public ResponseEntity<Object> updateAcoParticipant( AcoParticipant acoParticipant) {
+		boolean status =  acoService.updateAcoParticiapant(acoParticipant);
+		if(status) {
+			return ResponseEntity.status(HttpStatus.OK).body(null);
+		}
+		return ResponseEntity.badRequest().body(null);
+	}
+
+	@Override
+	public ResponseEntity<Object> deleteAcoParticipant(String acoParticipantId) {
+		acoService.deleteAcoParticipant(acoParticipantId);
+		return  ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+	}
+
+	@Override
+	public ResponseEntity<Object> updateAcoDetails(AcoDetails acoDetails) {
+		boolean status =  acoService.updateAcoDetails(acoDetails);
+		if(status) {
+			return ResponseEntity.status(HttpStatus.OK).body(null);
+		}
+		return ResponseEntity.badRequest().body(null);
+	}
+
+	@Override
+	public ResponseEntity<Object> addEmails(EmailId emailId) {
+		boolean status = acoService.addEmails(emailId);
+		if(status) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(null);
+		}
+		return ResponseEntity.badRequest().body(null);
+	}
+
+	
 
 }

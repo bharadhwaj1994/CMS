@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import com.aco.demo.domain.AcoAgreementDetails;
 
 @Entity
-@Table(name="Agreement_Details")
+@Table(name="ACO_Agreement_Details")
 public class AcoAgreementDetailsDao {
 
 	@Id
